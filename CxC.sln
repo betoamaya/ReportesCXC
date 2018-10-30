@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "CxC", "CxC\CxC.rptproj", "{7C079FD5-34DF-4E85-8098-AE26A351F8BD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		DebugLocal|Default = DebugLocal|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C079FD5-34DF-4E85-8098-AE26A351F8BD}.Debug|Default.ActiveCfg = Debug
+		{7C079FD5-34DF-4E85-8098-AE26A351F8BD}.Debug|Default.Build.0 = Debug
+		{7C079FD5-34DF-4E85-8098-AE26A351F8BD}.Debug|Default.Deploy.0 = Debug
+		{7C079FD5-34DF-4E85-8098-AE26A351F8BD}.DebugLocal|Default.ActiveCfg = DebugLocal
+		{7C079FD5-34DF-4E85-8098-AE26A351F8BD}.DebugLocal|Default.Build.0 = DebugLocal
+		{7C079FD5-34DF-4E85-8098-AE26A351F8BD}.Release|Default.ActiveCfg = Release
+		{7C079FD5-34DF-4E85-8098-AE26A351F8BD}.Release|Default.Build.0 = Release
+		{7C079FD5-34DF-4E85-8098-AE26A351F8BD}.Release|Default.Deploy.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
