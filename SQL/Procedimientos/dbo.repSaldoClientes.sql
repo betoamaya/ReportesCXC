@@ -57,10 +57,14 @@ BEGIN
            Cxc.Vencimiento,
            Cte.Cliente,
            Cte.Nombre,
-           Cxc.Sucursal /*Se Agrego Sucursal por Solicitud de la C.P. Zoraida*/
+           Cxc.Sucursal,     /*2018-10-30 -> Se Agrego Sucursal por Solicitud de la C.P. Zoraida*/
+           Cfd.FechaTimbrado /*2018-10-30 -> Se Agrego Fecha XML por Solicitud de la C.P. Zoraida*/
     FROM VerAuxCorte
         LEFT OUTER JOIN Cxc
             ON VerAuxCorte.ModuloID = Cxc.ID
+        INNER JOIN dbo.CFD AS Cfd
+            ON Cxc.ID = Cfd.ModuloID
+               AND Cfd.Modulo = 'CXC'
         JOIN Cte
             ON VerAuxCorte.Cuenta = Cte.Cliente
     WHERE VerAuxCorte.Estacion = @sEstacion
@@ -73,5 +77,4 @@ BEGIN
              VerAuxCorte.Mov,
              Cxc.FechaEmision DESC;
 END;
-
 GO
