@@ -62,9 +62,10 @@ BEGIN
     FROM VerAuxCorte
         LEFT OUTER JOIN Cxc
             ON VerAuxCorte.ModuloID = Cxc.ID
-        INNER JOIN dbo.CFD AS Cfd
-            ON Cxc.ID = Cfd.ModuloID
-               AND Cfd.Modulo = 'CXC'
+        LEFT JOIN dbo.CFD AS Cfd
+            ON Cxc.MovID = Cfd.MovID
+               AND Cfd.Ejercicio = Cxc.Ejercicio
+               AND Cfd.Periodo = Cxc.Periodo
         JOIN Cte
             ON VerAuxCorte.Cuenta = Cte.Cliente
     WHERE VerAuxCorte.Estacion = @sEstacion
