@@ -3,7 +3,7 @@ SET ANSI_NULLS ON;
 GO
 -- =============================================
 -- Responsable:		Roberto Amaya
--- Ultimo Cambio:	15/11/2018
+-- Ultimo Cambio:	31/10/2018
 -- Descripción:		Reporte de Saldo de Clientes
 -- =============================================
 ALTER PROCEDURE [dbo].[repSaldoClientes]
@@ -57,15 +57,15 @@ BEGIN
            Cxc.Vencimiento,
            Cte.Cliente,
            Cte.Nombre,
-           Cxc.ClienteEnviarA, /*2018-10-30 -> Se Agrego Sucursal por Solicitud de la C.P. Zoraida*/
-           Cfd.FechaTimbrado   /*2018-10-30 -> Se Agrego Fecha XML por Solicitud de la C.P. Zoraida*/
+           Cxc.ClienteEnviarA AS Sucursal, /*2018-10-31 -> Se Agrego Sucursal por Solicitud de la C.P. Zoraida*/
+           Cfd.FechaTimbrado               /*2018-10-30 -> Se Agrego Fecha XML por Solicitud de la C.P. Zoraida*/
     FROM VerAuxCorte
         LEFT OUTER JOIN Cxc
             ON VerAuxCorte.ModuloID = Cxc.ID
         LEFT JOIN dbo.CFD AS Cfd
             ON Cxc.MovID = Cfd.MovID
-               AND Cfd.Ejercicio = Cxc.Ejercicio
-               AND Cfd.Periodo = Cxc.Periodo
+        --AND Cfd.Ejercicio = Cxc.Ejercicio
+        --AND Cfd.Periodo = Cxc.Periodo
         JOIN Cte
             ON VerAuxCorte.Cuenta = Cte.Cliente
     WHERE VerAuxCorte.Estacion = @sEstacion
