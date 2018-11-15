@@ -3,7 +3,7 @@ SET ANSI_NULLS ON;
 GO
 -- =============================================
 -- Responsable:		Roberto Amaya
--- Ultimo Cambio:	30/10/2018
+-- Ultimo Cambio:	15/11/2018
 -- Descripción:		Reporte de Saldo de Clientes
 -- =============================================
 ALTER PROCEDURE [dbo].[repSaldoClientes]
@@ -71,7 +71,8 @@ BEGIN
     WHERE VerAuxCorte.Estacion = @sEstacion
           AND VerAuxCorte.Empresa = @sEmpresa
           AND Cxc.Mov NOT IN ( 'Solicitud Deposito', 'Redondeo', 'CFD Anticipo', 'Ing de Empleado Cred',
-                               'CFD Anticipo ServCom'
+                               'CFD Anticipo ServCom', 'Factura Ant AF SI', 'Factura Anticipos VE',
+                               'Factura Anticipo AF' /*RAAM-15/11/2018*/
                              )
           AND Cte.Cliente = ISNULL(@sCliente, Cte.Cliente)
     ORDER BY Cte.Cliente,
