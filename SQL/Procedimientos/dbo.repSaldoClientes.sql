@@ -72,8 +72,9 @@ BEGIN
           AND VerAuxCorte.Empresa = @sEmpresa
           AND Cxc.Mov NOT IN ( 'Solicitud Deposito', 'Redondeo', 'CFD Anticipo', 'Ing de Empleado Cred',
                                'CFD Anticipo ServCom', 'Factura Ant AF SI', 'Factura Anticipos VE',
-                               'Factura Anticipo AF' /*RAAM-15/11/2018*/
+                               'Factura Anticipo AF' /*RAAM-15/11/2018 - Se Agrego mas movimientos de la C.P. Zoraida*/
                              )
+          AND VerAuxCorte.Saldo > 0.9999 /*RAAM-15/11/2018 - Se Agrego filtro para descartar saldo menor a un peso de la C.P. Zoraida*/
           AND Cte.Cliente = ISNULL(@sCliente, Cte.Cliente)
     ORDER BY Cte.Cliente,
              VerAuxCorte.Mov,
