@@ -3,7 +3,7 @@ SET ANSI_NULLS ON;
 GO
 -- =============================================
 -- Responsable:		Roberto Amaya
--- Ultimo Cambio:	31/10/2018
+-- Ultimo Cambio:	10/12/2018
 -- Descripción:		Reporte de Saldo de Clientes
 -- =============================================
 ALTER PROCEDURE [dbo].[repSaldoClientes]
@@ -58,14 +58,23 @@ BEGIN
            Cte.Cliente,
            Cte.Nombre,
            Cxc.ClienteEnviarA AS Sucursal, /*2018-10-31 -> Se Agrego Sucursal por Solicitud de la C.P. Zoraida*/
-           Cfd.FechaTimbrado               /*2018-10-30 -> Se Agrego Fecha XML por Solicitud de la C.P. Zoraida*/
+           Cfd.FechaTimbrado,              /*2018-10-30 -> Se Agrego Fecha XML por Solicitud de la C.P. Zoraida*/
+		   Cfd.UUID        /*2018-12-07 -> Se Agrego Fecha UUID por Solicitud de la C.P. Zoraida*/
     FROM VerAuxCorte
         LEFT OUTER JOIN Cxc
             ON VerAuxCorte.ModuloID = Cxc.ID
+        LEFT JOIN dbo.Venta AS vtas
+            ON vtas.MovID = VerAuxCorte.MovID
+               AND vtas.Mov = VerAuxCorte.Mov
         LEFT JOIN dbo.CFD AS Cfd
             ON Cxc.MovID = Cfd.MovID
-        --AND Cfd.Ejercicio = Cxc.Ejercicio
-        --AND Cfd.Periodo = Cxc.Periodo
+               AND (CASE
+                        WHEN ISNULL(Cxc.OrigenTipo, 'CXC') = 'CXC' THEN
+                            Cxc.ID
+                        WHEN Cxc.OrigenTipo = 'VTAS' THEN
+                            vtas.ID
+                    END
+                   ) = Cfd.ModuloID
         JOIN Cte
             ON VerAuxCorte.Cuenta = Cte.Cliente
     WHERE VerAuxCorte.Estacion = @sEstacion

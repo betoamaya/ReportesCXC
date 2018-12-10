@@ -19,11 +19,35 @@
     </LogicalFolder>
     <LogicalFolder Name="Consultas" Type="0" Sorted="true">
       <Items>
-        <FileNode Name="SQLQuery1.sql">
+        <FileNode Name="Consultar directamente la tabla.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GTPINTELISISDB:False:Roberto</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>GTPINTELISISDB</AssociatedConnSrvName>
           <AssociatedConnUserName>Roberto</AssociatedConnUserName>
-          <FullPath>SQLQuery1.sql</FullPath>
+          <FullPath>Consultar directamente la tabla.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Ejecutar repSaldoClientes.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GTPINTELISISDB:False:Roberto</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GTPINTELISISDB</AssociatedConnSrvName>
+          <AssociatedConnUserName>Roberto</AssociatedConnUserName>
+          <FullPath>Ejecutar repSaldoClientes.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Prueba Agregando Fecha de Timbrado.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GTPINTELISISDB:False:Roberto</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GTPINTELISISDB</AssociatedConnSrvName>
+          <AssociatedConnUserName>Roberto</AssociatedConnUserName>
+          <FullPath>Prueba Agregando Fecha de Timbrado.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Prueba Agregando Sucursal.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GTPINTELISISDB:False:Roberto</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GTPINTELISISDB</AssociatedConnSrvName>
+          <AssociatedConnUserName>Roberto</AssociatedConnUserName>
+          <FullPath>Prueba Agregando Sucursal.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Prueba Qtr Movs y Menos 1 Peso.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GTPINTELISISDB:False:Roberto</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GTPINTELISISDB</AssociatedConnSrvName>
+          <AssociatedConnUserName>Roberto</AssociatedConnUserName>
+          <FullPath>Prueba Qtr Movs y Menos 1 Peso.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>
