@@ -48,6 +48,8 @@ SELECT c.Cliente,
        END AS Cuenta,
        c.Mov,
        c.MovID,
+       c5.FechaTimbrado,
+       c5.UUID,
        cd.Aplica,
        cd.AplicaID,
        '' AS Origen,
@@ -68,6 +70,10 @@ FROM dbo.Cxc AS c
            AND c3.MovID = cd.AplicaID
            AND c3.Empresa = c.Empresa
            AND c3.Estatus NOT IN ( 'CANCELADO', 'SINAFECTAR' )
+    LEFT JOIN dbo.CFD AS c5
+        ON c5.Modulo = 'CXC'
+           AND c5.ModuloID = c.ID
+           AND c5.MovID = c.MovID
 WHERE c.Empresa = @Empresa
       AND c.Estatus NOT IN ( 'CANCELADO', 'SINAFECTAR' )
       AND c.FechaEmision
@@ -118,6 +124,8 @@ SELECT c.Cliente,
        END AS Cuenta,
        c.Mov,
        c.MovID,
+       c6.FechaTimbrado,
+       c6.UUID,
        cd.Aplica,
        cd.AplicaID,
        c4.Mov AS Origen,
@@ -144,6 +152,10 @@ FROM dbo.Cxc AS c
            AND c4.Mov = c.MovAplica
            AND c4.MovID = c.MovAplicaID
            AND c4.Estatus NOT IN ( 'CANCELADO', 'SINAFECTAR' )
+    LEFT JOIN dbo.CFD AS c6
+        ON c6.Modulo = 'CXC'
+           AND c6.ModuloID = c.ID
+           AND c6.MovID = c.MovID
 WHERE c.Empresa = @Empresa
       AND c.Estatus NOT IN ( 'CANCELADO', 'SINAFECTAR' )
       AND (
@@ -183,6 +195,8 @@ SELECT c.Cliente,
        END AS Cuenta,
        c.Mov,
        c.MovID,
+       NULL AS FechaTimbrado,
+       NULL AS UUID,
        c.Mov AS Aplica,
        c.MovID AS AplicaID,
        '' AS Origen,
@@ -208,6 +222,8 @@ SELECT v.Cliente,
        a2.Cuenta,
        v.Mov,
        v.MovID,
+       c2.FechaTimbrado,
+       c2.UUID,
        v.Mov AS Aplica,
        v.MovID AS AplicaID,
        '' AS Origen,
@@ -227,6 +243,10 @@ FROM dbo.Venta AS v
                             )
     INNER JOIN dbo.Cte AS c
         ON v.Cliente = c.Cliente
+    LEFT JOIN dbo.CFD AS c2
+        ON c2.Modulo = 'VTAS'
+           AND c2.ModuloID = v.ID
+           AND c2.MovID = v.MovID
 WHERE v.Empresa = @Empresa
       AND v.Estatus = 'CONCLUIDO'
       AND v.FechaEmision
@@ -242,6 +262,8 @@ SELECT c.Cliente,
        c3.Cuenta AS Cuenta,
        c.Mov,
        c.MovID,
+       NULL AS FechaTimbrado,
+       NULL AS UUID,
        c.Mov AS Aplica,
        c.MovID AS AplicaID,
        '' AS Origen,
@@ -274,6 +296,8 @@ SELECT v.Cliente,
        '101-015-200',
        v.Mov,
        v.MovID,
+       c2.FechaTimbrado,
+       c2.UUID,
        v.Mov AS Aplica,
        v.MovID AS AplicaID,
        '' AS Origen,
@@ -283,6 +307,10 @@ SELECT v.Cliente,
 FROM dbo.Venta AS v
     INNER JOIN dbo.Cte AS c
         ON v.Cliente = c.Cliente
+    LEFT JOIN dbo.CFD AS c2
+        ON c2.Modulo = 'VTAS'
+           AND c2.ModuloID = v.ID
+           AND c2.MovID = v.MovID
 WHERE v.Empresa = @Empresa
       AND v.Estatus = 'CONCLUIDO'
       AND v.FechaEmision
@@ -298,6 +326,8 @@ SELECT c.Contacto AS Cliente,
        '101-015-200',
        c.Mov,
        c.MovID,
+       NULL AS FechaTimbrado,
+       NULL AS UUID,
        c.Mov AS Aplica,
        c.MovID AS AplicaID,
        '' AS Origen,
