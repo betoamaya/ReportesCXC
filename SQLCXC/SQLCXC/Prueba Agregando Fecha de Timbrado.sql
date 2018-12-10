@@ -47,5 +47,3 @@ EXEC dbo.spVerAuxCorte @Estacion = 10001,      -- int
                        @FechaA = '2018-10-30', -- datetime
                        @CuentaD = '00000',     -- char(10)
                        @CuentaA = 'TUN';       -- char(10)
-
-
