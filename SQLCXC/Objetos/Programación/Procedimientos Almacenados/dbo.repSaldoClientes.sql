@@ -59,7 +59,7 @@ BEGIN
            Cte.Nombre,
            Cxc.ClienteEnviarA AS Sucursal, /*2018-10-31 -> Se Agrego Sucursal por Solicitud de la C.P. Zoraida*/
            Cfd.FechaTimbrado,              /*2018-10-30 -> Se Agrego Fecha XML por Solicitud de la C.P. Zoraida*/
-           UPPER(Cfd.UUID) AS UUID         /*2018-12-07 -> Se Agrego Fecha UUID por Solicitud de la C.P. Zoraida*/
+		   Cfd.UUID        /*2018-12-07 -> Se Agrego Fecha UUID por Solicitud de la C.P. Zoraida*/
     FROM VerAuxCorte
         LEFT OUTER JOIN Cxc
             ON VerAuxCorte.ModuloID = Cxc.ID
