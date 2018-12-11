@@ -122,6 +122,7 @@ SELECT vac.Moneda,
        Cfd.FechaTimbrado,              /*2018-10-30 -> Se Agrego Fecha XML por Solicitud de la C.P. Zoraida*/
        Cfd.UUID,                        /*2018-12-07 -> Se Agrego Fecha XML por Solicitud de la C.P. Zoraida*/
 	   c.Cuenta,
+	   c2.Descripcion,
 	   datediff(day, Cxc.FechaEmision, '2018-11-30') AS dias
 FROM dbo.VerAuxCorte AS vac
     LEFT OUTER JOIN Cxc
@@ -141,6 +142,7 @@ FROM dbo.VerAuxCorte AS vac
     JOIN Cte
         ON vac.Cuenta = Cte.Cliente
 	left JOIN dbo.Concepto AS c ON c.Concepto = Cxc.Concepto AND c.Modulo = 'VTAS'
+	LEFT JOIN dbo.Cta AS c2 ON c2.Cuenta = c.Cuenta
 WHERE vac.Estacion = 10000
       AND vac.Empresa = 'tun'
       AND vac.Mov NOT IN ( 'Solicitud Deposito', 'Redondeo', 'CFD Anticipo', 'Ing de Empleado Cred',
