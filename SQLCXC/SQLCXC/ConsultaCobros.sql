@@ -351,3 +351,11 @@ WHERE c.Empresa = @Empresa
       AND c.Contacto = ISNULL(@Cliente, c.Contacto)
       AND ISNULL(cd.Haber, 0) <> 0
 ORDER BY Cliente ASC;
+
+
+GO
+
+EXEC dbo.repCobrosClientes @Empresa = 'TUN',
+                           @dInicio = '2018-11-01',
+                           @dFin = '2018-11-30',
+                           @Cliente = NULL;
