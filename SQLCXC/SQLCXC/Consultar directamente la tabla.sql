@@ -102,3 +102,52 @@ WHERE vac.Estacion = 10000
 ORDER BY Cte.Cliente,
          vac.Mov,
          Cxc.FechaEmision DESC;
+
+
+/**************************************************************/
+
+--2140
+
+SELECT vac.Moneda,
+       vac.Cuenta,
+       vac.Mov,
+       vac.MovID,
+       vac.Saldo,
+       Cxc.FechaEmision,
+       Cxc.Referencia,
+       Cxc.Vencimiento,
+       Cte.Cliente,
+       Cte.Nombre,
+       Cxc.ClienteEnviarA AS Sucursal, /*2018-10-31 -> Se Agrego Sucursal por Solicitud de la C.P. Zoraida*/
+       Cfd.FechaTimbrado,              /*2018-10-30 -> Se Agrego Fecha XML por Solicitud de la C.P. Zoraida*/
+       Cfd.UUID,                        /*2018-12-07 -> Se Agrego Fecha XML por Solicitud de la C.P. Zoraida*/
+	   c.Cuenta,
+	   datediff(day, Cxc.FechaEmision, '2018-11-30') AS dias
+FROM dbo.VerAuxCorte AS vac
+    LEFT OUTER JOIN Cxc
+        ON vac.ModuloID = Cxc.ID
+    LEFT JOIN dbo.Venta AS vtas
+        ON vtas.MovID = vac.MovID
+           AND vtas.Mov = vac.Mov
+    LEFT JOIN dbo.CFD AS Cfd
+        ON Cxc.MovID = Cfd.MovID
+           AND (CASE
+                    WHEN ISNULL(Cxc.OrigenTipo, 'CXC') = 'CXC' THEN
+                        Cxc.ID
+                    WHEN Cxc.OrigenTipo = 'VTAS' THEN
+                        vtas.ID
+                END
+               ) = Cfd.ModuloID
+    JOIN Cte
+        ON vac.Cuenta = Cte.Cliente
+	left JOIN dbo.Concepto AS c ON c.Concepto = Cxc.Concepto AND c.Modulo = 'VTAS'
+WHERE vac.Estacion = 10000
+      AND vac.Empresa = 'tun'
+      AND vac.Mov NOT IN ( 'Solicitud Deposito', 'Redondeo', 'CFD Anticipo', 'Ing de Empleado Cred',
+                           'CFD Anticipo ServCom', 'Factura Ant AF SI', 'Factura Anticipos VE', 'Factura Anticipo AF' /*RAAM-15/11/2018 - Se Agrego mas movimientos de la C.P. Zoraida*/
+                         )
+      AND vac.Saldo > 0.9999 /*RAAM-15/11/2018 - Se Agrego filtro para descartar saldo menor a un peso de la C.P. Zoraida*/
+--AND dbo.VerAuxCorte.MovID = 'TPAS637974'
+ORDER BY Cte.Cliente,
+         vac.Mov,
+         Cxc.FechaEmision DESC;
