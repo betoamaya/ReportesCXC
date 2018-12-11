@@ -15,14 +15,26 @@
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
           <ApplicationName />
         </ConnectionNode>
+        <ConnectionNode Name="GTPINTELISISDB:SA">
+          <Created>2018-12-11T15:36:04.3266305-06:00</Created>
+          <Type>SQL</Type>
+          <Server>GTPINTELISISDB</Server>
+          <UserName>SA</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Consulta</ApplicationName>
+        </ConnectionNode>
       </Items>
     </LogicalFolder>
     <LogicalFolder Name="Consultas" Type="0" Sorted="true">
       <Items>
         <FileNode Name="ConsultaCobros.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GTPINTELISISDB:False:Roberto</AssociatedConnectionMoniker>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GTPINTELISISDB:False:SA</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>GTPINTELISISDB</AssociatedConnSrvName>
-          <AssociatedConnUserName>Roberto</AssociatedConnUserName>
+          <AssociatedConnUserName>SA</AssociatedConnUserName>
           <FullPath>ConsultaCobros.sql</FullPath>
         </FileNode>
         <FileNode Name="Consultar directamente la tabla.sql">
