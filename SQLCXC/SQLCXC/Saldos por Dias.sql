@@ -132,6 +132,8 @@ FROM
         ON tmp.Cliente = Cte.Cliente
     LEFT JOIN dbo.Cta AS c3
         ON tmp.Cuenta = c3.Cuenta
+WHERE
+	tmp.Cuenta = '101-010-102'
 GROUP BY tmp.Cuenta,
          c3.Descripcion,
          tmp.Cliente,

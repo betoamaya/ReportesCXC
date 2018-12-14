@@ -187,6 +187,10 @@ WHERE vac.Estacion = 10000
              Cxc.MovID IN ( 'TPAS655028' )
              AND Cxc.Mov = 'FACT PAS CREDITO' AND vac.Estacion = 10000
          )
+	OR (
+             Cxc.MovID IN ( 'TPAS664814' )
+             AND Cxc.Mov = 'FACT PAS CREDITO' AND vac.Estacion = 10000
+         )
 
 
 ---AND Cte.Cliente= '23629'
@@ -215,7 +219,9 @@ SELECT * FROM dbo.Concepto AS c WHERE c.Concepto = 'PASAJES CONTADO BOLETERA'
 SELECT * FROM dbo.Concepto AS c WHERE c.Cuenta = '101-010-102'
 
 /*********************/
-SELECT *  FROM cxc WHERE Cxc.MovID IN ( 'TPAS655028' )
+SELECT *  FROM cxc WHERE Cxc.MovID IN ( 'TPAS655028', 'tpas664914' )
              AND Cxc.Mov = 'Fact Pas Credito'
+SELECT * FROM dbo.CxcD AS cd WHERE cd.id = 484059
 SELECT * FROM dbo.Concepto AS c WHERE c.Cuenta = '101-015-311'
 SELECT * FROM dbo.Cta AS c WHERE c.Cuenta = '101-015-311'
+
