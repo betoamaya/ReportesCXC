@@ -87,9 +87,9 @@ FROM @RelacionXML.nodes('//RelacionMov/fila') AS T(LOC);
 
 /*Consulta*/
 
-SELECT vac.Estacion,
-       vac.ID,
-       vac.Empresa,
+SELECT cont.Cuenta AS CtaContable,
+       cta.Descripcion,
+       cont.Debe AS Saldo,
        vac.Modulo,
        vac.Moneda,
        vac.Cuenta,
@@ -104,15 +104,17 @@ FROM dbo.VerAuxCorte AS vac
     LEFT JOIN dbo.Venta AS v
         ON cxc.Origen = v.Mov
            AND cxc.OrigenID = v.MovID
-    INNER JOIN dbo.ContD AS cd
+    INNER JOIN dbo.ContD AS cont
         ON (CASE
                 WHEN ISNULL(cxc.OrigenTipo, 'CXC') = 'CXC' THEN
                     cxc.ContID
                 WHEN cxc.OrigenTipo = 'VTAS' THEN
                     v.ContID
             END
-           ) = cd.ID
-           AND ISNULL(cd.Haber, 0) = 0
+           ) = cont.ID
+           AND ISNULL(cont.Haber, 0) = 0
+    LEFT JOIN dbo.Cta AS cta
+        ON cta.Cuenta = cont.Cuenta
 WHERE vac.Empresa = @sEmpresa
       AND vac.Estacion = @sEstacion
       AND vac.Mov IN (
