@@ -32,9 +32,9 @@
     <LogicalFolder Name="Consultas" Type="0" Sorted="true">
       <Items>
         <FileNode Name="ConsultaCobros.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GTPINTELISISDB:False:SA</AssociatedConnectionMoniker>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GTPINTELISISDB:False:Roberto</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>GTPINTELISISDB</AssociatedConnSrvName>
-          <AssociatedConnUserName>SA</AssociatedConnUserName>
+          <AssociatedConnUserName>Roberto</AssociatedConnUserName>
           <FullPath>ConsultaCobros.sql</FullPath>
         </FileNode>
         <FileNode Name="Consultar directamente la tabla.sql">
@@ -66,6 +66,24 @@
           <AssociatedConnSrvName>GTPINTELISISDB</AssociatedConnSrvName>
           <AssociatedConnUserName>Roberto</AssociatedConnUserName>
           <FullPath>Prueba Qtr Movs y Menos 1 Peso.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Saldos por Cuenta por día del Diario.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GTPINTELISISDB:False:Roberto</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GTPINTELISISDB</AssociatedConnSrvName>
+          <AssociatedConnUserName>Roberto</AssociatedConnUserName>
+          <FullPath>Saldos por Cuenta por día del Diario.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Saldos por Dias.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GTPINTELISISDB:False:Roberto</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GTPINTELISISDB</AssociatedConnSrvName>
+          <AssociatedConnUserName>Roberto</AssociatedConnUserName>
+          <FullPath>Saldos por Dias.sql</FullPath>
+        </FileNode>
+        <FileNode Name="SaldosPorCuentaPorDias.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GTPINTELISISDB:False:Roberto</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GTPINTELISISDB</AssociatedConnSrvName>
+          <AssociatedConnUserName>Roberto</AssociatedConnUserName>
+          <FullPath>SaldosPorCuentaPorDias.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>
