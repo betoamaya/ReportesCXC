@@ -56,6 +56,7 @@ SET @RelacionXML
 			<fila Mov="Venta  Activos Fijos" CtaContable="101-020-300" />
 		</RelacionMov>' AS XML);
 
+
 SELECT @dFechaD = CONVERT(VARCHAR, @dInicio, 101) + ' 00:00:00',
        @dFechaA = CONVERT(VARCHAR, @dFin, 101) + ' 23:59:59',
        @dFechaFinMes = DATEADD(dd, - (DAY(DATEADD(mm, 1, @dFin))), DATEADD(mm, 1, @dFin)),

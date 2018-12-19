@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Programación", "Programaci
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Procedimientos Almacenados", "Procedimientos Almacenados", "{E0E062EB-B8DD-46E3-9E54-C4481E1078E0}"
 	ProjectSection(SolutionItems) = preProject
+		Objetos\Programación\Procedimientos Almacenados\dbo.repAntiguedadSaldos.sql = Objetos\Programación\Procedimientos Almacenados\dbo.repAntiguedadSaldos.sql
 		Objetos\Programación\Procedimientos Almacenados\dbo.repCobrosClientes.sql = Objetos\Programación\Procedimientos Almacenados\dbo.repCobrosClientes.sql
 		Objetos\Programación\Procedimientos Almacenados\dbo.repSaldoClientes.sql = Objetos\Programación\Procedimientos Almacenados\dbo.repSaldoClientes.sql
 	EndProjectSection
@@ -19,7 +20,7 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{6FAF9083-484E-4C8D-9035-FA1E97D3D160}.Default|Default.ActiveCfg = Default
-		{11C7126E-CFF4-4A24-B108-0B0F8FA63441}.Default|Default.ActiveCfg = Default
+		{A52AA882-194B-4C8C-8000-39E045461E3C}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
