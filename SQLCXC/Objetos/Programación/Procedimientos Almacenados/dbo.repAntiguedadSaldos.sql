@@ -7,7 +7,7 @@ GO
 -- Ultimo Cambio:	19/12/2018
 -- Descripción:		Reporte de Antiguedad de Saldos
 -- =============================================
-ALTER PROCEDURE [dbo].[repAntiguedadSaldos]
+CREATE PROCEDURE [dbo].[repAntiguedadSaldos]
     @sEmpresa AS CHAR(5),
     @dInicio AS DATE,
     @dFin AS DATE,
