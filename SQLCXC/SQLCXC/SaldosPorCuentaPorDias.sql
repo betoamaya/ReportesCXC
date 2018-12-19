@@ -231,6 +231,14 @@ WHERE vac.Estacion = @sEstacion
 --SELECT *
 --FROM @Corte AS c;
 
+/*Corrigiendo saldo*/
+UPDATE @Corte
+SET Saldo = 6405.24
+WHERE MovID = 'TOT82260';
+UPDATE @Corte
+SET Saldo = 30309.44
+WHERE MovID = 'TOT96694';
+
 SELECT c.CtaContable,
        c.Descripcion,
        c.Cliente,
@@ -278,7 +286,9 @@ GROUP BY c.CtaContable,
          c.Nombre,
          c.Mov,
          c.MovID
-ORDER BY c.CtaContable, c.Cliente, c.MovID;
+ORDER BY c.CtaContable,
+         c.Cliente,
+         c.MovID;
 
 /*TOTALES*/
 
