@@ -33,8 +33,7 @@ BEGIN
         MovID VARCHAR(20),
         FechaEmision DATETIME,
         Cliente CHAR(10),
-        Nombre VARCHAR(100),
-        Dias INT
+        Nombre VARCHAR(100)
     );
 
     DECLARE @RelacionXML AS XML,
@@ -117,8 +116,7 @@ BEGIN
         MovID,
         FechaEmision,
         Cliente,
-        Nombre,
-        Dias
+        Nombre
     )
     SELECT rm.CtaContable,
            cta.Descripcion,
@@ -127,8 +125,7 @@ BEGIN
            cxc.MovID,
            cxc.FechaEmision,
            cxc.Cliente,
-           cte.Nombre,
-           DATEDIFF(DAY, cxc.FechaEmision, @dFechaFinMes) AS Dias
+           cte.Nombre
     FROM dbo.VerAuxCorte AS vac
         INNER JOIN @RelacionMov AS rm
             ON vac.Mov = rm.Mov
@@ -153,8 +150,7 @@ BEGIN
         MovID,
         FechaEmision,
         Cliente,
-        Nombre,
-        Dias
+        Nombre
     )
     SELECT cod.Cuenta AS CtaContable,
            cta.Descripcion,
@@ -163,8 +159,7 @@ BEGIN
            cxc.MovID,
            cxc.FechaEmision,
            cxc.Cliente,
-           cte.Nombre,
-           DATEDIFF(DAY, cxc.FechaEmision, @dFechaFinMes) AS Dias
+           cte.Nombre
     FROM dbo.VerAuxCorte AS vac
         INNER JOIN dbo.Cxc AS cxc
             ON vac.ModuloID = cxc.ID
@@ -194,8 +189,7 @@ BEGIN
            vac.MovID,
            cxc2.FechaEmision,
            cxc2.Cliente,
-           cte.Nombre,
-           DATEDIFF(DAY, cxc2.FechaEmision, @dFechaFinMes) AS Dias
+           cte.Nombre
     FROM dbo.VerAuxCorte AS vac
         INNER JOIN dbo.Cxc AS cxc2
             ON vac.Mov = cxc2.Mov
@@ -229,8 +223,7 @@ BEGIN
         MovID,
         FechaEmision,
         Cliente,
-        Nombre,
-        Dias
+        Nombre
     )
     SELECT cod.Cuenta AS CtaContable,
            cta.Descripcion,
@@ -239,8 +232,7 @@ BEGIN
            cxc.MovID,
            cxc.FechaEmision,
            cxc.Cliente,
-           cte.Nombre,
-           DATEDIFF(DAY, cxc.FechaEmision, @dFechaFinMes) AS Dias
+           cte.Nombre
     FROM dbo.VerAuxCorte AS vac
         INNER JOIN dbo.Cxc AS cxc
             ON vac.ModuloID = cxc.ID
