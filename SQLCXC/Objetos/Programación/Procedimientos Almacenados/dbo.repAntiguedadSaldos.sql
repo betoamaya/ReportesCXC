@@ -7,7 +7,7 @@ GO
 -- Ultimo Cambio:	19/12/2018
 -- Descripción:		Reporte de Antiguedad de Saldos
 -- =============================================
-CREATE PROCEDURE [dbo].[repAntiguedadSaldos]
+ALTER PROCEDURE [dbo].[repAntiguedadSaldos]
     @sEmpresa AS CHAR(5),
     @dInicio AS DATE,
     @dFin AS DATE,
@@ -78,6 +78,7 @@ BEGIN
 
     SELECT @dFechaD = CONVERT(VARCHAR, @dInicio, 101) + ' 00:00:00',
            @dFechaA = CONVERT(VARCHAR, @dFin, 101) + ' 23:59:59',
+           @dFechaFinMes = DATEADD(dd, - (DAY(DATEADD(mm, 1, @dFin))), DATEADD(mm, 1, @dFin)),
            @sEstacion = (CASE @sEmpresa
                              WHEN 'TUN' THEN
                                  10000
@@ -257,14 +258,6 @@ BEGIN
           AND vac.Empresa = @sEmpresa
           AND vac.Mov IN ( 'Nota Cargo', 'SI Contra Recibo Pas' )
           AND vac.Saldo > 0.9999;
-
-    /*Corrigiendo saldo*/
-    UPDATE @Corte
-    SET Saldo = 6405.24
-    WHERE MovID = 'TOT82260';
-    UPDATE @Corte
-    SET Saldo = 30309.44
-    WHERE MovID = 'TOT96694';
 
     /*Corrigiendo saldo*/
     UPDATE @Corte
