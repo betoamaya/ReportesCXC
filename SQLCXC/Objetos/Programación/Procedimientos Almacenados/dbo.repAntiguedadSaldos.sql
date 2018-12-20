@@ -4,14 +4,15 @@ SET QUOTED_IDENTIFIER ON;
 GO
 -- =============================================
 -- Responsable:		Roberto Amaya
--- Ultimo Cambio:	19/12/2018
+-- Ultimo Cambio:	20/12/2018
 -- Descripción:		Reporte de Antiguedad de Saldos
 -- =============================================
-CREATE PROCEDURE [dbo].[repAntiguedadSaldos]
+ALTER PROCEDURE [dbo].[repAntiguedadSaldos]
     @sEmpresa AS CHAR(5),
     @dInicio AS DATE,
     @dFin AS DATE,
-    @sCliente AS VARCHAR(10) = NULL
+    @sCliente AS VARCHAR(10) = NULL,
+    @bGenerar AS BIT = 0
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -90,20 +91,33 @@ BEGIN
                          END
                         );
 
-    SELECT @sClienteD = MIN(Cliente),
-           @sClienteA = MAX(Cliente)
-    FROM dbo.Cte;
+    IF ISNULL(@sCliente, '') <> ''
+    BEGIN
+        SELECT @sClienteD = @sCliente,
+               @sClienteA = @sCliente;
+    END;
+    ELSE
+    BEGIN
+        SELECT @sClienteD = MIN(Cliente),
+               @sClienteA = MAX(Cliente)
+        FROM dbo.Cte;
+    END;
+
 
     /*Generar Información para la tabla de VerAuxCorte*/
 
     /*Cancelado*/
-    --EXEC dbo.spVerAuxCorte @Estacion = @sEstacion, -- int
-    --                       @Empresa = @sEmpresa,   -- char(5)
-    --                       @Modulo = 'CXC',        -- char(5)
-    --                       @FechaD = @dFechaD,     -- datetime
-    --                       @FechaA = @dFechaA,     -- datetime
-    --                       @CuentaD = @sClienteD,  -- char(10)
-    --                       @CuentaA = @sClienteA;  -- char(10)
+    IF @bGenerar = 1
+    BEGIN
+        PRINT 'Generando VerAuxCorte';
+        EXEC dbo.spVerAuxCorte @Estacion = @sEstacion, -- int
+                               @Empresa = @sEmpresa,   -- char(5)
+                               @Modulo = 'CXC',        -- char(5)
+                               @FechaD = @dFechaD,     -- datetime
+                               @FechaA = @dFechaA,     -- datetime
+                               @CuentaD = @sClienteD,  -- char(10)
+                               @CuentaA = @sClienteA;  -- char(10)    
+    END;
 
     /*Relacionar movimientos con la CtaContable*/
 
@@ -138,7 +152,8 @@ BEGIN
             ON cta.Cuenta = rm.CtaContable
     WHERE vac.Estacion = @sEstacion
           AND vac.Empresa = @sEmpresa
-          AND vac.Saldo > 0.9999;
+          AND vac.Saldo > 0.9999
+          AND vac.Cuenta = ISNULL(@sCliente, vac.Cuenta);
 
     /***Caso Fact Pas Sedena - Lumx Pas Credito***/
     INSERT INTO @Corte
@@ -180,6 +195,7 @@ BEGIN
           AND vac.Empresa = @sEmpresa
           AND vac.Mov IN ( 'Fact Pas Sedena', 'Lumx Pas Credito' )
           AND vac.Saldo > 0.9999
+          AND vac.Cuenta = ISNULL(@sCliente, vac.Cuenta)
     /*Agregar los cobros para reducir el saldo*/
     UNION ALL
     SELECT cta.Cuenta AS CtaContable,
@@ -211,7 +227,8 @@ BEGIN
     WHERE vac.Estacion = @sEstacion
           AND vac.Empresa = @sEmpresa
           AND vac.Mov IN ( 'Fact Pas Sedena', 'Lumx Pas Credito' )
-          AND vac.Saldo > 0.9999;
+          AND vac.Saldo > 0.9999
+          AND vac.Cuenta = ISNULL(@sCliente, vac.Cuenta);
 
     /***Caso NOTA CARGO - SI Contra Recibo Pas***/
     INSERT INTO @Corte
@@ -249,7 +266,8 @@ BEGIN
     WHERE vac.Estacion = @sEstacion
           AND vac.Empresa = @sEmpresa
           AND vac.Mov IN ( 'Nota Cargo', 'SI Contra Recibo Pas' )
-          AND vac.Saldo > 0.9999;
+          AND vac.Saldo > 0.9999
+          AND vac.Cuenta = ISNULL(@sCliente, vac.Cuenta);
 
     /*Corrigiendo saldo*/
     UPDATE @Corte
