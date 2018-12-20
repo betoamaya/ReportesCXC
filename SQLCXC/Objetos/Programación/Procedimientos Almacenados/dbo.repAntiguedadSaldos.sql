@@ -4,10 +4,10 @@ SET QUOTED_IDENTIFIER ON;
 GO
 -- =============================================
 -- Responsable:		Roberto Amaya
--- Ultimo Cambio:	19/12/2018
+-- Ultimo Cambio:	20/12/2018
 -- Descripción:		Reporte de Antiguedad de Saldos
 -- =============================================
-CREATE PROCEDURE [dbo].[repAntiguedadSaldos]
+ALTER PROCEDURE [dbo].[repAntiguedadSaldos]
     @sEmpresa AS CHAR(5),
     @dInicio AS DATE,
     @dFin AS DATE,
@@ -138,7 +138,8 @@ BEGIN
             ON cta.Cuenta = rm.CtaContable
     WHERE vac.Estacion = @sEstacion
           AND vac.Empresa = @sEmpresa
-          AND vac.Saldo > 0.9999;
+          AND vac.Saldo > 0.9999
+          AND vac.Cuenta = ISNULL(@sCliente, vac.Cuenta);
 
     /***Caso Fact Pas Sedena - Lumx Pas Credito***/
     INSERT INTO @Corte
@@ -180,6 +181,7 @@ BEGIN
           AND vac.Empresa = @sEmpresa
           AND vac.Mov IN ( 'Fact Pas Sedena', 'Lumx Pas Credito' )
           AND vac.Saldo > 0.9999
+          AND vac.Cuenta = ISNULL(@sCliente, vac.Cuenta)
     /*Agregar los cobros para reducir el saldo*/
     UNION ALL
     SELECT cta.Cuenta AS CtaContable,
@@ -211,7 +213,8 @@ BEGIN
     WHERE vac.Estacion = @sEstacion
           AND vac.Empresa = @sEmpresa
           AND vac.Mov IN ( 'Fact Pas Sedena', 'Lumx Pas Credito' )
-          AND vac.Saldo > 0.9999;
+          AND vac.Saldo > 0.9999
+          AND vac.Cuenta = ISNULL(@sCliente, vac.Cuenta);
 
     /***Caso NOTA CARGO - SI Contra Recibo Pas***/
     INSERT INTO @Corte
@@ -249,7 +252,8 @@ BEGIN
     WHERE vac.Estacion = @sEstacion
           AND vac.Empresa = @sEmpresa
           AND vac.Mov IN ( 'Nota Cargo', 'SI Contra Recibo Pas' )
-          AND vac.Saldo > 0.9999;
+          AND vac.Saldo > 0.9999
+          AND vac.Cuenta = ISNULL(@sCliente, vac.Cuenta);
 
     /*Corrigiendo saldo*/
     UPDATE @Corte
