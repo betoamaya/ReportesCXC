@@ -11,7 +11,8 @@ ALTER PROCEDURE [dbo].[repAntiguedadSaldos]
     @sEmpresa AS CHAR(5),
     @dInicio AS DATE,
     @dFin AS DATE,
-    @sCliente AS VARCHAR(10) = NULL
+    @sCliente AS VARCHAR(10) = NULL,
+    @bGenerar AS BIT = 0
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -90,20 +91,33 @@ BEGIN
                          END
                         );
 
-    SELECT @sClienteD = MIN(Cliente),
-           @sClienteA = MAX(Cliente)
-    FROM dbo.Cte;
+    IF ISNULL(@sCliente, '') <> ''
+    BEGIN
+        SELECT @sClienteD = @sCliente,
+               @sClienteA = @sCliente;
+    END;
+    ELSE
+    BEGIN
+        SELECT @sClienteD = MIN(Cliente),
+               @sClienteA = MAX(Cliente)
+        FROM dbo.Cte;
+    END;
+
 
     /*Generar Información para la tabla de VerAuxCorte*/
 
     /*Cancelado*/
-    --EXEC dbo.spVerAuxCorte @Estacion = @sEstacion, -- int
-    --                       @Empresa = @sEmpresa,   -- char(5)
-    --                       @Modulo = 'CXC',        -- char(5)
-    --                       @FechaD = @dFechaD,     -- datetime
-    --                       @FechaA = @dFechaA,     -- datetime
-    --                       @CuentaD = @sClienteD,  -- char(10)
-    --                       @CuentaA = @sClienteA;  -- char(10)
+    IF @bGenerar = 1
+    BEGIN
+        PRINT 'Generando VerAuxCorte';
+        EXEC dbo.spVerAuxCorte @Estacion = @sEstacion, -- int
+                               @Empresa = @sEmpresa,   -- char(5)
+                               @Modulo = 'CXC',        -- char(5)
+                               @FechaD = @dFechaD,     -- datetime
+                               @FechaA = @dFechaA,     -- datetime
+                               @CuentaD = @sClienteD,  -- char(10)
+                               @CuentaA = @sClienteA;  -- char(10)    
+    END;
 
     /*Relacionar movimientos con la CtaContable*/
 

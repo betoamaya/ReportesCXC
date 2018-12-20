@@ -11,6 +11,14 @@
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>161fcd58-5304-4736-96ff-18c501c5dbf4</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="Cnn_Pruebas">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString>Data Source=GTPINTELISISDB;Initial Catalog=GpoTranspaisCanc</ConnectString>
+      </ConnectionProperties>
+      <rd:SecurityType>DataBase</rd:SecurityType>
+      <rd:DataSourceID>62e8e436-a0a2-4325-bf62-08e21b73d045</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="dsEmpresas">
@@ -27,7 +35,7 @@
     </DataSet>
     <DataSet Name="dsRepAntiguedadSaldos">
       <Query>
-        <DataSourceName>Cnn_GtpIntelisisDB</DataSourceName>
+        <DataSourceName>Cnn_Pruebas</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@sEmpresa">
             <Value>=Parameters!sEmpresa.Value</Value>
@@ -40,6 +48,9 @@
           </QueryParameter>
           <QueryParameter Name="@sCliente">
             <Value>=Parameters!sCliente.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@bGenerar">
+            <Value>=Parameters!bGenerar.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -1611,6 +1622,27 @@
       <Nullable>true</Nullable>
       <Prompt>Cliente:</Prompt>
     </ReportParameter>
+    <ReportParameter Name="bGenerar">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>false</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Generar Saldos</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>true</Value>
+            <Label>Si</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>false</Value>
+            <Label>No</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -1636,6 +1668,11 @@
           <ColumnIndex>3</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>sCliente</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>bGenerar</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
